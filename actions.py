@@ -39,6 +39,7 @@ def create_club():
 	print("Enter the numbers of the people you would like to recruit to your new club (-1 to stop):")
 	print("-----------------------------------")
 	counter=1
+	enroll=False
 	for member in population:
 		print("[%s] %s" %(counter,member.name))
 		counter+=1
@@ -46,7 +47,12 @@ def create_club():
 		try:
 			rec=int(input())
 			if rec!=int(-1) and rec<=len(population):
-				name.recruit_member(population[rec-1])
+				for member in name.members:
+					if population[rec-1] == member:
+						print("Member already enrolled in club")
+						enroll=True
+				if enroll==False:
+					name.recruit_member(population[rec-1])
 			elif rec==int(-1):
 				name.recruit_member(myself)
 				name.assign_president(myself)
@@ -90,13 +96,20 @@ def join_clubs():
 	# your code goes here!
 	view_clubs()
 	exist=False
+	enroll=False
 	choice=input("\nEnter the name of the club you'd like to join: ")
 	for club in clubs:
 		if club.name.lower()==choice.lower():
-			club.recruit_member(myself)
-			exist=True
-			print("%s just joined %s" %(myself.name,club.name))
-			break
+			for member in club.members:
+				if my_name == member.name:
+					print("You are already enrolled in this club")
+					enroll=True
+					exist=True
+			if enroll== False:
+				club.recruit_member(myself)
+				print("%s just joined %s" %(myself.name,club.name))
+				exist=True
+				break
 	if exist==False:
 		print("Club name invalid please make sure you type is correctly")
 	options()
