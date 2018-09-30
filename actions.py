@@ -39,11 +39,11 @@ def create_club():
 	print("Enter the numbers of the people you would like to recruit to your new club (-1 to stop):")
 	print("-----------------------------------")
 	counter=1
-	enroll=False
 	for member in population:
 		print("[%s] %s" %(counter,member.name))
 		counter+=1
 	while True:
+		enroll=False
 		try:
 			rec=int(input())
 			if rec!=int(-1) and rec<=len(population):
